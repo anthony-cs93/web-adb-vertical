@@ -20,6 +20,7 @@ import {
   ChevronDown, 
   FileCheck
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface HomeViewProps {
   onNavigate: (page: PageView) => void;
@@ -100,27 +101,33 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
             {/* CTAs Hierarchy */}
             <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => onOpenQuote()}
-                className="inline-flex items-center justify-center gap-2 bg-linear-to-r from-[#085AB3] to-[#0a6ad1] hover:from-[#074b94] hover:to-[#085AB3] text-white text-base font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-900/50 hover:shadow-xl transition-all active:scale-[0.98] border border-blue-400/30"
+                className="inline-flex items-center justify-center gap-2 bg-linear-to-r from-[#085AB3] to-[#0a6ad1] hover:from-[#074b94] hover:to-[#085AB3] text-white text-base font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-900/50 hover:shadow-xl transition-all border border-blue-400/30"
                 id="hero-primary-quote-btn"
               >
                 <span>Solicitar cotización</span>
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </motion.button>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href={getWhatsAppLink('cotizacion')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-base font-bold px-6 py-3.5 rounded-xl border border-emerald-400/50 transition-all shadow-md shadow-emerald-950/40 active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-base font-bold px-6 py-3.5 rounded-xl border border-emerald-400/50 transition-all shadow-md shadow-emerald-950/40"
                 id="hero-whatsapp-btn"
               >
                 <MessageSquare className="w-5 h-5" />
                 <span>Hablar con un asesor</span>
-              </a>
+              </motion.a>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => {
                   const el = document.getElementById('catalogo-soluciones');
                   el?.scrollIntoView({ behavior: 'smooth' });
@@ -129,7 +136,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 id="hero-secondary-solutions-btn"
               >
                 <span>Ver catálogo</span>
-              </button>
+              </motion.button>
             </div>
 
             {/* Microcopy */}
@@ -141,7 +148,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* 2. PUNTALES (Trust Pillars) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 shadow-sm">
           <div className="max-w-3xl mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
@@ -161,9 +174,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
               const IconComp = icons[idx] || ShieldCheck;
 
               return (
-                <div 
+                <motion.div 
                   key={idx}
-                  className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-200 hover:bg-blue-50/30 transition-all group"
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 hover:shadow-md hover:bg-blue-50/30 transition-all duration-300 group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 text-[#085AB3] flex items-center justify-center mb-3.5 group-hover:bg-[#085AB3] group-hover:text-white transition-colors shadow-xs">
                     <IconComp className="w-5 h-5" />
@@ -174,15 +189,22 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <p className="text-xs text-slate-600 leading-relaxed">
                     {pillar.description}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 3. CATÁLOGO (Productos y Soluciones de Elevación) */}
-      <section id="catalogo-soluciones" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        id="catalogo-soluciones" 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -202,7 +224,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="flex flex-wrap gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-end text-xs font-semibold">
             <button
               onClick={() => setActiveCategoryFilter('todos')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded-lg transition-all duration-200 ${
                 activeCategoryFilter === 'todos'
                   ? 'bg-white text-[#085AB3] shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
@@ -212,7 +234,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
             <button
               onClick={() => setActiveCategoryFilter('pasajeros')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded-lg transition-all duration-200 ${
                 activeCategoryFilter === 'pasajeros'
                   ? 'bg-white text-[#085AB3] shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
@@ -222,7 +244,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
             <button
               onClick={() => setActiveCategoryFilter('residencial')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded-lg transition-all duration-200 ${
                 activeCategoryFilter === 'residencial'
                   ? 'bg-white text-[#085AB3] shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
@@ -232,7 +254,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
             <button
               onClick={() => setActiveCategoryFilter('carga')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded-lg transition-all duration-200 ${
                 activeCategoryFilter === 'carga'
                   ? 'bg-white text-[#085AB3] shadow-xs font-bold'
                   : 'text-slate-600 hover:text-slate-900'
@@ -259,18 +281,26 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <span>
             ¿No encuentras las medidas exactas de tu ducto o tienes una geometría especial?
           </span>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => onOpenQuote()}
             className="font-bold text-[#085AB3] hover:text-[#074b94] underline flex items-center gap-1 shrink-0"
           >
             <span>Consultar desarrollo de solución a medida</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          </motion.button>
         </div>
-      </section>
+      </motion.section>
 
       {/* 4. ACOMPAÑAMIENTO (Nuestros Servicios Integrales de Elevación) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
             Acompañamiento en Cada Etapa
@@ -286,9 +316,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
         {/* 5 Services Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {servicesData.map((service, idx) => (
-            <div 
+            <motion.div 
               key={service.id}
-              className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs hover:shadow-lg hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <span className="text-xs font-bold text-[#085AB3] block mb-2">0{idx + 1}</span>
@@ -303,21 +335,29 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                 <button
                   onClick={() => onNavigate('services')}
-                  className="font-bold text-[#085AB3] hover:underline"
+                  className="font-bold text-[#085AB3] hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
                 >
-                  Ver alcance →
+                  <span>Ver alcance</span>
+                  <span>→</span>
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* 5. ALIANZAS (Carrusel de Clientes y Alianzas B2B) */}
       <ClientsCarousel onOpenQuote={() => onOpenQuote()} />
 
       {/* 6. COTIZADOR (Soluciones a Medida & Cotizador Interactivo) */}
-      <section id="cotizador-interactivo" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <motion.section 
+        id="cotizador-interactivo" 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
+      >
         {/* Banner: Soluciones a medida: cada proyecto tiene necesidades únicas. */}
         <div className="bg-linear-to-br from-[#02163B] to-[#072B6B] text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-700 space-y-8">
           <div className="space-y-4">
@@ -367,7 +407,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 desc: 'Ingeniería con precios competitivos y acompañamiento técnico directo desde la etapa de planos.'
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-slate-900/60 backdrop-blur-xs p-4 rounded-xl border border-slate-700/80 space-y-1.5">
+              <motion.div 
+                key={idx} 
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="bg-slate-900/60 backdrop-blur-xs p-4 rounded-xl border border-slate-700/80 hover:border-cyan-500/50 hover:bg-slate-900/80 transition-all space-y-1.5"
+              >
                 <div className="flex items-center gap-2 text-cyan-300 font-bold text-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>{item.title}</span>
@@ -375,33 +420,37 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {item.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Action CTAs */}
           <div className="pt-2 flex flex-wrap items-center gap-3">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => {
                 const el = document.getElementById('quote-wizard-container');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#0a6ad1] text-white text-sm font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-950/50 hover:shadow-xl transition-all active:scale-[0.98] border border-blue-400/30"
+              className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#0a6ad1] text-white text-sm font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-950/50 hover:shadow-xl transition-all border border-blue-400/30"
               id="custom-solution-cta-btn"
             >
               <span>Cotiza tu proyecto aquí</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </motion.button>
 
-            <a
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={getWhatsAppLink('personalizado', 'tengo un proyecto con medidas y requerimientos específicos y requiero orientación técnica a medida.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold px-6 py-3.5 rounded-xl border border-emerald-400/50 transition-all shadow-md shadow-emerald-950/40 active:scale-[0.98]"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold px-6 py-3.5 rounded-xl border border-emerald-400/50 transition-all shadow-md shadow-emerald-950/40"
             >
               <MessageSquare className="w-4 h-4" />
               <span>Consultar por WhatsApp</span>
-            </a>
+            </motion.a>
           </div>
         </div>
 
@@ -409,10 +458,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div>
           <QuoteWizard isOpenModal={false} />
         </div>
-      </section>
+      </motion.section>
 
       {/* 7. MANTENIMIENTO (Mantenimiento Preventivo y Correctivo) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12">
             
@@ -490,10 +545,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 8. FAQ (Preguntas Frecuentes) */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="text-center mb-8">
           <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
             Preguntas Frecuentes
@@ -509,11 +570,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
             return (
               <div 
                 key={idx}
-                className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs transition-all"
+                className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:border-blue-200 transition-colors"
               >
                 <button
                   onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 focus:outline-none transition-colors hover:bg-slate-50/60"
                   aria-expanded={isOpen}
                   id={`faq-btn-${idx}`}
                 >
@@ -525,19 +586,35 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   }`} />
                 </button>
 
-                {isOpen && (
-                  <div className="px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 animate-fadeIn">
-                    <p>{faq.answer}</p>
-                  </div>
-                )}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden border-t border-slate-100"
+                    >
+                      <div className="px-4 sm:px-5 pb-5 pt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* FINAL HIGH-CONVERSION CTA BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8"
+      >
         <div className="bg-[#02163B] rounded-3xl p-8 sm:p-12 text-white text-center relative overflow-hidden border border-slate-800 shadow-xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
             <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3] bg-blue-950 px-3 py-1 rounded-full border border-blue-800">
@@ -553,16 +630,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </p>
 
             <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => onOpenQuote()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-sm font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all active:scale-[0.98]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-sm font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all"
                 id="bottom-banner-quote-btn"
               >
                 <span>Solicitar cotización de proyecto</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </motion.button>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href={getWhatsAppLink('cotizacion')}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -571,7 +652,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>Hablar por WhatsApp</span>
-              </a>
+              </motion.a>
             </div>
 
             <p className="text-[11px] text-slate-400 pt-1">
@@ -579,7 +660,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

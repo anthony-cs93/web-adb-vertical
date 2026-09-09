@@ -16,6 +16,7 @@ import {
   Zap,
   Sparkles
 } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface MaintenanceViewProps {
   onNavigate: (page: PageView) => void;
@@ -31,7 +32,12 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
       {/* Top Banner */}
       <section className="bg-[#02163B] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-3xl space-y-4"
+          >
             <div className="inline-flex items-center gap-2 bg-[#085AB3] text-white text-xs font-bold px-3 py-1 rounded">
               <span>Servicio Postventa</span>
             </div>
@@ -41,12 +47,18 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Un ascensor no termina su ciclo con la instalación. La inspección periódica y el ajuste técnico continuo garantizan la seguridad de los usuarios y protegen el valor de tu inmueble.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Por qué es crítico el mantenimiento */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           <div className="lg:col-span-7 space-y-5 text-slate-700">
@@ -67,17 +79,26 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
                 { title: 'Conservación del equipo', desc: 'Prolonga la vida útil de cables de tracción, poleas y motor.' },
                 { title: 'Detección temprana', desc: 'Identifica desgastes menores antes de que se conviertan en averías mayores.' }
               ].map((item, idx) => (
-                <div key={idx} className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                <motion.div 
+                  key={idx} 
+                  whileHover={{ y: -3 }}
+                  transition={{ duration: 0.2 }}
+                  className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-2xs hover:shadow-xs transition-all"
+                >
                   <span className="font-bold text-[#02163B] block mb-1">{item.title}</span>
                   <span className="text-slate-600">{item.desc}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
           {/* Checklist Card */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-md space-y-4">
+            <motion.div 
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-md space-y-4 hover:shadow-lg transition-all"
+            >
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 className="text-sm font-bold text-[#02163B] flex items-center gap-2">
                   <Activity className="w-4 h-4 text-[#085AB3]" />
@@ -106,7 +127,9 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
               </ul>
 
               <div className="pt-2 border-t border-slate-100">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   href={getWhatsAppLink('mantenimiento')}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -114,16 +137,22 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Consultar plan para mi edificio</span>
-                </a>
+                </motion.a>
               </div>
-            </div>
+            </motion.div>
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
       {/* Planes de Mantenimiento Estructurados */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="text-center max-w-2xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
             Cobertura & Modalidades
@@ -140,12 +169,14 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
           {maintenancePlans.map((plan) => {
             const isPopular = plan.isPopular;
             return (
-              <div
+              <motion.div
                 key={plan.id}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className={`bg-white rounded-2xl border p-6 sm:p-7 shadow-xs flex flex-col justify-between relative transition-all ${
                   isPopular
                     ? 'border-[#085AB3] ring-2 ring-[#085AB3]/20 shadow-md'
-                    : 'border-slate-200 hover:border-slate-300'
+                    : 'border-slate-200 hover:border-blue-200 hover:shadow-md'
                 }`}
               >
                 {isPopular && (
@@ -182,7 +213,9 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
                   <span className="text-[11px] text-slate-500 block">
                     <strong>Alcance:</strong> {plan.coverage}
                   </span>
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     href={getWhatsAppLink('personalizado', `deseo solicitar una propuesta para el ${plan.name} de mi inmueble.`)}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -194,16 +227,22 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span>Cotizar este plan</span>
-                  </a>
+                  </motion.a>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* Atención de Contingencias & Emergencias */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-10 border border-slate-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-3 max-w-xl">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-800 px-2.5 py-1 rounded">
@@ -219,14 +258,18 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <a
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={`tel:${companyInfo.phone.replace(/[^0-9+]/g, '')}`}
               className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 hover:bg-slate-100 text-xs font-bold px-5 py-3 rounded-xl transition-colors"
             >
               <Phone className="w-4 h-4 text-[#085AB3]" />
               <span>Llamar: {companyInfo.phoneDisplay}</span>
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={getWhatsAppLink('mantenimiento')}
               target="_blank"
               rel="noopener noreferrer"
@@ -234,10 +277,10 @@ export const MaintenanceView: React.FC<MaintenanceViewProps> = ({ onNavigate, on
             >
               <MessageSquare className="w-4 h-4" />
               <span>WhatsApp Soporte</span>
-            </a>
+            </motion.a>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

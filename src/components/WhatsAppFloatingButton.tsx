@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MessageSquare, X, Send, PhoneCall, ShieldCheck, Home, Building2, Wrench } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { companyInfo, getWhatsAppLink } from '../data/companyData';
 
 interface WhatsAppFloatingButtonProps {
@@ -16,8 +17,15 @@ export const WhatsAppFloatingButton: React.FC<WhatsAppFloatingButtonProps> = ({ 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Popover Bubble */}
-      {isOpen && (
-        <div className="mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fadeIn transition-all">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 15, transformOrigin: "bottom right" }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 15 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden"
+          >
           {/* Header */}
           <div className="bg-[#02163B] p-4 text-white flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -123,26 +131,29 @@ export const WhatsAppFloatingButton: React.FC<WhatsAppFloatingButtonProps> = ({ 
               <span>{companyInfo.whatsappDisplay}</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
+    </AnimatePresence>
 
-      {/* Floating Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative group flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
-        aria-label="Contactar por WhatsApp a ADB Soluciones Vertical"
-        id="floating-whatsapp-main-btn"
-      >
-        <div className="relative">
-          <MessageSquare className="w-6 h-6 fill-white text-emerald-600" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
-          </span>
-        </div>
-        <span className="text-sm tracking-tight hidden md:inline font-bold">
-          {isOpen ? 'Cerrar chat' : 'WhatsApp'}
+    {/* Floating Button */}
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => setIsOpen(!isOpen)}
+      className="relative group flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-colors duration-200 focus:outline-none"
+      aria-label="Contactar por WhatsApp a ADB Soluciones Vertical"
+      id="floating-whatsapp-main-btn"
+    >
+      <div className="relative">
+        <MessageSquare className="w-6 h-6 fill-white text-emerald-600" />
+        <span className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center">
+          <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
         </span>
-      </button>
-    </div>
+      </div>
+      <span className="text-sm tracking-tight hidden md:inline font-bold">
+        {isOpen ? 'Cerrar chat' : 'WhatsApp'}
+      </span>
+    </motion.button>
+  </div>
   );
 };

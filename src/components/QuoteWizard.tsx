@@ -21,6 +21,7 @@ import {
   Sparkles,
   Info
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface QuoteWizardProps {
   initialSolution?: string;
@@ -205,78 +206,95 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
 
       {/* Form Body */}
       <div className="p-6 sm:p-8">
-        {isSubmitted ? (
-          /* SUCCESS STATE */
-          <div className="text-center py-6 space-y-6 animate-fadeIn">
-            <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
-              <CheckCircle2 className="w-10 h-10" />
-            </div>
+        <AnimatePresence mode="wait">
+          {isSubmitted ? (
+            /* SUCCESS STATE */
+            <motion.div 
+              key="success"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="text-center py-6 space-y-6"
+            >
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
+                <CheckCircle2 className="w-10 h-10" />
+              </div>
 
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#085AB3]">
-                Referencia: {quoteReference}
-              </span>
-              <h3 className="text-2xl font-bold text-[#02163B] mt-1">
-                ¡Gracias por compartir tu proyecto!
-              </h3>
-              <p className="text-sm text-slate-600 max-w-lg mx-auto mt-2 leading-relaxed">
-                Un asesor de <strong>ADB Soluciones Vertical</strong> revisará la información y se pondrá en contacto contigo a la brevedad con una propuesta técnica y económica a la medida.
-              </p>
-            </div>
-
-            {/* Structured Summary Box */}
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 text-left text-xs space-y-2 max-w-lg mx-auto">
-              <div className="flex justify-between border-b border-slate-200 pb-2">
-                <span className="text-slate-500 font-medium">Solución:</span>
-                <span className="font-bold text-slate-800">
-                  {productsData.find(p => p.id === formData.solutionType)?.name || formData.solutionType}
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#085AB3]">
+                  Referencia: {quoteReference}
                 </span>
+                <h3 className="text-2xl font-bold text-[#02163B] mt-1">
+                  ¡Gracias por compartir tu proyecto!
+                </h3>
+                <p className="text-sm text-slate-600 max-w-lg mx-auto mt-2 leading-relaxed">
+                  Un asesor de <strong>ADB Soluciones Vertical</strong> revisará la información y se pondrá en contacto contigo a la brevedad con una propuesta técnica y económica a la medida.
+                </p>
               </div>
-              <div className="flex justify-between border-b border-slate-200 pb-2">
-                <span className="text-slate-500 font-medium">Ubicación / Inmueble:</span>
-                <span className="font-bold text-slate-800">{formData.city} • {formData.projectType}</span>
-              </div>
-              <div className="flex justify-between border-b border-slate-200 pb-2">
-                <span className="text-slate-500 font-medium">Dimensiones preliminares:</span>
-                <span className="font-bold text-slate-800">{formData.floorsCount} pisos / {formData.stopsCount} paradas ({formData.estimatedCapacity})</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500 font-medium">Contacto registrado:</span>
-                <span className="font-bold text-slate-800">{formData.fullName} ({formData.whatsapp || formData.phone})</span>
-              </div>
-            </div>
 
-            {/* Direct WhatsApp acceleration CTA */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a
-                href={generateWhatsAppSubmissionURL()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all text-sm active:scale-[0.98]"
-                id="btn-send-wa-summary"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Enviar datos a WhatsApp ({companyInfo.whatsappDisplay})</span>
-              </a>
+              {/* Structured Summary Box */}
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 text-left text-xs space-y-2 max-w-lg mx-auto">
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500 font-medium">Solución:</span>
+                  <span className="font-bold text-slate-800">
+                    {productsData.find(p => p.id === formData.solutionType)?.name || formData.solutionType}
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500 font-medium">Ubicación / Inmueble:</span>
+                  <span className="font-bold text-slate-800">{formData.city} • {formData.projectType}</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500 font-medium">Dimensiones preliminares:</span>
+                  <span className="font-bold text-slate-800">{formData.floorsCount} pisos / {formData.stopsCount} paradas ({formData.estimatedCapacity})</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500 font-medium">Contacto registrado:</span>
+                  <span className="font-bold text-slate-800">{formData.fullName} ({formData.whatsapp || formData.phone})</span>
+                </div>
+              </div>
 
-              <button
-                onClick={() => {
-                  setIsSubmitted(false);
-                  setCurrentStep(1);
-                  setFormData(initialFormState);
-                  if (onCloseModal) onCloseModal();
-                }}
-                className="w-full sm:w-auto text-xs text-slate-600 hover:text-[#02163B] font-semibold py-3 px-4 rounded-xl border border-slate-200 hover:bg-slate-50"
-              >
-                {isOpenModal ? 'Cerrar ventana' : 'Cotizar otro proyecto'}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            {/* STEP 1: Proyecto y Solución */}
-            {currentStep === 1 && (
-              <div className="space-y-6 animate-fadeIn">
+              {/* Direct WhatsApp acceleration CTA */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={generateWhatsAppSubmissionURL()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all text-sm"
+                  id="btn-send-wa-summary"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Enviar datos a WhatsApp ({companyInfo.whatsappDisplay})</span>
+                </motion.a>
+
+                <button
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setCurrentStep(1);
+                    setFormData(initialFormState);
+                    if (onCloseModal) onCloseModal();
+                  }}
+                  className="w-full sm:w-auto text-xs text-slate-600 hover:text-[#02163B] font-semibold py-3 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors"
+                >
+                  {isOpenModal ? 'Cerrar ventana' : 'Cotizar otro proyecto'}
+                </button>
+              </div>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              {/* STEP 1: Proyecto y Solución */}
+              {currentStep === 1 && (
+                <motion.div 
+                  key="step1"
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="space-y-6"
+                >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   
                   {/* Solución */}
@@ -418,7 +436,9 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
                 </div>
 
                 <div className="pt-4 flex justify-end">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="button"
                     onClick={() => setCurrentStep(2)}
                     disabled={!validateStep1()}
@@ -427,14 +447,21 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
                   >
                     <span>Siguiente: Detalles Técnicos</span>
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* STEP 2: Detalles y Planos */}
             {currentStep === 2 && (
-              <div className="space-y-6 animate-fadeIn">
+              <motion.div 
+                key="step2"
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="space-y-6"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   
                   {/* Cuarto de Máquinas */}
@@ -557,13 +584,15 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 py-2.5 px-4"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 py-2.5 px-4 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Volver</span>
                   </button>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="button"
                     onClick={() => setCurrentStep(3)}
                     className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-sm font-bold px-6 py-3 rounded-xl shadow-sm transition-all"
@@ -571,14 +600,21 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
                   >
                     <span>Siguiente: Datos de Contacto</span>
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* STEP 3: Contacto y Envío */}
             {currentStep === 3 && (
-              <div className="space-y-6 animate-fadeIn">
+              <motion.div 
+                key="step3"
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="space-y-6"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   
                   {/* Nombre */}
@@ -691,16 +727,18 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 py-2.5 px-4"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 py-2.5 px-4 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Volver</span>
                   </button>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting || !validateStep3()}
-                    className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-sm font-bold px-8 py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
+                    className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-sm font-bold px-8 py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all disabled:opacity-50"
                     id="submit-quote-btn"
                   >
                     {isSubmitting ? (
@@ -711,12 +749,13 @@ export const QuoteWizard: React.FC<QuoteWizardProps> = ({
                         <span>Enviar Solicitud de Cotización</span>
                       </>
                     )}
-                  </button>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
             )}
           </form>
         )}
+        </AnimatePresence>
       </div>
     </div>
   );

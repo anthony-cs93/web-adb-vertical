@@ -2,6 +2,7 @@ import React from 'react';
 import { Product } from '../types';
 import { getWhatsAppLink } from '../data/companyData';
 import { ArrowRight, CheckCircle2, MessageSquare, Shield, Users, Building, Sparkles } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface ProductCardProps {
   product: Product;
@@ -15,8 +16,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onQuickQuote 
 }) => {
   return (
-    <div 
-      className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group"
+    <motion.div 
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col group"
       id={`product-card-${product.id}`}
     >
       {/* Image Container */}
@@ -24,7 +27,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <img 
           src={product.image} 
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
           loading="lazy"
           referrerPolicy="no-referrer"
         />
@@ -76,27 +79,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Action Buttons */}
         <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.97 }}
             onClick={() => onOpenDetails(product)}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 bg-slate-50 hover:bg-blue-50 text-slate-800 hover:text-[#085AB3] text-xs font-bold py-2.5 px-3 rounded-lg border border-slate-200 hover:border-blue-200 transition-colors"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 bg-slate-50 hover:bg-blue-50 text-slate-800 hover:text-[#085AB3] text-xs font-bold py-2.5 px-3 rounded-lg border border-slate-200 hover:border-blue-200 transition-all"
             id={`btn-view-details-${product.id}`}
           >
             <span>Ver solución</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </motion.button>
 
-          <a
+          <motion.a
+            whileTap={{ scale: 0.94 }}
             href={getWhatsAppLink('personalizado', `quiero cotizar la solución: ${product.name}.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-colors shrink-0"
+            className="p-2.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-all shrink-0 hover:shadow-xs"
             title="Consultar por WhatsApp"
             id={`btn-wa-direct-${product.id}`}
           >
             <MessageSquare className="w-4 h-4" />
-          </a>
+          </motion.a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

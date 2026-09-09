@@ -12,6 +12,7 @@ import {
   Building2,
   CheckCircle2
 } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface ContactViewProps {
   onNavigate: (page: PageView) => void;
@@ -24,7 +25,12 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
       {/* Top Banner */}
       <section className="bg-[#02163B] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-3xl space-y-4"
+          >
             <div className="inline-flex items-center gap-2 bg-[#085AB3] text-white text-xs font-bold px-3 py-1 rounded">
               <span>Canales de Atención</span>
             </div>
@@ -34,19 +40,29 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Atención personalizada para constructoras, arquitectos, administradores de edificios y propietarios en Lima y a nivel nacional en el Perú.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Main Grid: Contact Cards + Quote Form */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Left Column: Direct Contact Info & NAP */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* Primary Channel: WhatsApp */}
-            <div className="bg-emerald-950/20 border border-emerald-800/40 rounded-2xl p-6 text-slate-800 space-y-3">
+            <motion.div 
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="bg-emerald-950/20 border border-emerald-800/40 rounded-2xl p-6 text-slate-800 space-y-3 shadow-xs"
+            >
               <div className="flex items-center gap-2.5 text-emerald-800 font-bold text-xs uppercase tracking-wider">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>Canal de Atención Inmediata</span>
@@ -57,7 +73,9 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
               <p className="text-xs text-slate-600 leading-relaxed">
                 Escríbenos directamente para consultas rápidas, coordinación de visitas técnicas o envío directo de planos y fotografías de obra.
               </p>
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href={getWhatsAppLink('general')}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -66,11 +84,15 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>Escribir al WhatsApp: {companyInfo.whatsappDisplay}</span>
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
 
             {/* Telephone & Email Info Cards */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5 shadow-xs">
+            <motion.div 
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5 shadow-xs"
+            >
               <h4 className="text-sm font-bold uppercase tracking-wider text-[#02163B] border-b border-slate-100 pb-3">
                 Información de Contacto
               </h4>
@@ -85,7 +107,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                     <span className="text-slate-400 font-medium block text-[11px] uppercase">Central Telefónica / Celular</span>
                     <a 
                       href={`tel:${companyInfo.phone.replace(/[^0-9+]/g, '')}`}
-                      className="font-bold text-[#02163B] hover:text-[#085AB3] text-sm"
+                      className="font-bold text-[#02163B] hover:text-[#085AB3] text-sm transition-colors"
                     >
                       {companyInfo.phoneDisplay}
                     </a>
@@ -101,7 +123,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                     <span className="text-slate-400 font-medium block text-[11px] uppercase">Email de Cotizaciones</span>
                     <a 
                       href={`mailto:${companyInfo.emailSales}`}
-                      className="font-bold text-[#02163B] hover:text-[#085AB3] text-sm break-all"
+                      className="font-bold text-[#02163B] hover:text-[#085AB3] text-sm break-all transition-colors"
                     >
                       {companyInfo.emailSales}
                     </a>
@@ -140,7 +162,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Peru Nationwide Coverage Box */}
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2 text-xs text-slate-700">
@@ -160,7 +182,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate }) => {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { PageView } from '../../types';
 import { companyInfo, getWhatsAppLink } from '../../data/companyData';
-import { BrandLogo } from '../BrandLogo';
 import { 
   ShieldCheck, 
   Target, 
@@ -14,6 +13,7 @@ import {
   MessageSquare,
   CheckCircle2
 } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface AboutViewProps {
   onNavigate: (page: PageView) => void;
@@ -27,7 +27,12 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
       {/* Top Banner */}
       <section className="bg-[#02163B] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-3xl space-y-4"
+          >
             <div className="inline-flex items-center gap-2 bg-[#085AB3] text-white text-xs font-bold px-3 py-1 rounded">
               <span>ADB Soluciones Vertical</span>
             </div>
@@ -37,12 +42,18 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Somos una empresa peruana orientada a transformar la movilidad vertical en proyectos residenciales, comerciales e industriales, ofreciendo soluciones a medida que combinan seguridad, tecnología de vanguardia y precios competitivos.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Quiénes somos & Filosofía */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           <div className="lg:col-span-6 space-y-5 text-slate-700">
@@ -71,58 +82,39 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
             </div>
           </div>
 
-          <div className="lg:col-span-6 space-y-4">
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div className="space-y-0.5">
-                  <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0062B8] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
-                    Identidad Oficial
-                  </span>
-                  <h4 className="text-base font-extrabold text-[#02163B] mt-1">ADB Soluciones Vertical</h4>
-                </div>
-                <span className="text-[11px] text-slate-400 font-medium">Marca Registrada &bull; Perú</span>
-              </div>
-
-              {/* Both versions showcase: Original & Negative */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {/* Versión Original (Fondo Claro) */}
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-                  <BrandLogo size="md" theme="original" showSubtitle={true} className="h-14 mb-2" />
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                    Versión Original (Fondo Claro)
-                  </span>
-                </div>
-
-                {/* Versión Negativa (Fondo Oscuro) */}
-                <div className="bg-[#02163B] border border-blue-900/40 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-                  <BrandLogo size="md" theme="negative" showSubtitle={true} className="h-14 mb-2" />
-                  <span className="text-[10px] font-bold text-blue-200 uppercase tracking-wider">
-                    Versión Negativa (Fondo Oscuro)
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-200 aspect-16/9 relative bg-slate-100">
+          <div className="lg:col-span-6 h-full flex flex-col justify-center">
+            <div className="w-full h-full min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] rounded-2xl overflow-hidden shadow-xl border border-slate-200 relative bg-slate-100 group">
               <img 
-                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80" 
+                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80" 
                 alt="Ingeniería y arquitectura en elevación ADB Soluciones Vertical"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-[#02163B]/85 via-transparent to-transparent flex items-end p-5">
-                <span className="text-white text-xs font-semibold">
-                  Compromiso con la seguridad estructural y electromecánica en el Perú
+              <div className="absolute inset-0 bg-linear-to-t from-[#02163B]/90 via-[#02163B]/35 to-transparent flex flex-col justify-end p-6 sm:p-8">
+                <span className="inline-block bg-[#085AB3] text-white text-[11px] font-bold px-2.5 py-1 rounded w-fit mb-2 uppercase tracking-wider">
+                  Ingeniería & Seguridad
                 </span>
+                <p className="text-white text-base sm:text-lg font-bold leading-snug">
+                  Compromiso con la seguridad estructural y electromecánica en el Perú
+                </p>
+                <p className="text-slate-200 text-xs mt-1.5 font-medium">
+                  Cumplimiento de normativas técnicas EM.070, EN 81-20/50 y ASME A17.1
+                </p>
               </div>
             </div>
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
       {/* Los 4 Pilares Corporativos */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="text-center max-w-2xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
             Nuestros Pilares
@@ -134,19 +126,30 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {companyInfo.pillars.map((pillar, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:border-blue-200 hover:shadow-sm transition-all">
-              <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#085AB3] flex items-center justify-center font-bold mb-4">
+            <motion.div 
+              key={idx} 
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:border-blue-300 hover:shadow-md transition-all duration-300 group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-blue-50 group-hover:bg-[#085AB3] text-[#085AB3] group-hover:text-white flex items-center justify-center font-bold mb-4 transition-colors">
                 0{idx + 1}
               </div>
               <h3 className="text-base font-bold text-[#02163B] mb-2">{pillar.title}</h3>
               <p className="text-xs text-slate-600 leading-relaxed">{pillar.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Enfoque B2B y B2C */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-slate-50 rounded-2xl p-8 sm:p-12 border border-slate-200">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
@@ -159,7 +162,11 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* B2B */}
-            <div className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-xs space-y-4">
+            <motion.div 
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 space-y-4"
+            >
               <div className="flex items-center gap-3">
                 <div className="p-3 bg-blue-50 text-[#085AB3] rounded-lg">
                   <Building2 className="w-6 h-6" />
@@ -188,10 +195,14 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
                   <span>Comisionamiento y protocolos de seguridad</span>
                 </li>
               </ul>
-            </div>
+            </motion.div>
 
             {/* B2C */}
-            <div className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-xs space-y-4">
+            <motion.div 
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-xs hover:shadow-md hover:border-emerald-300 transition-all duration-300 space-y-4"
+            >
               <div className="flex items-center gap-3">
                 <div className="p-3 bg-emerald-50 text-emerald-600 rounded-lg">
                   <Users className="w-6 h-6" />
@@ -220,13 +231,19 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
                   <span>Botoneras accesibles y rescate automático</span>
                 </li>
               </ul>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Cobertura en Perú */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <div className="flex items-center gap-2 text-xs font-bold text-[#085AB3] uppercase tracking-wider">
@@ -242,14 +259,18 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onOpenQuote()}
               className="inline-flex items-center justify-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-sm transition-all"
             >
               <span>Solicitar cotización</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
-            <a
+            </motion.button>
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={getWhatsAppLink('general')}
               target="_blank"
               rel="noopener noreferrer"
@@ -257,10 +278,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenQuote })
             >
               <MessageSquare className="w-4 h-4" />
               <span>Hablar con un asesor</span>
-            </a>
+            </motion.a>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

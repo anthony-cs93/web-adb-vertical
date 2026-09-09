@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
 import { ProductModal } from './components/ProductModal';
 import { QuoteWizard } from './components/QuoteWizard';
+import { motion, AnimatePresence } from 'motion/react';
 
 // Views
 import { HomeView } from './components/views/HomeView';
@@ -57,63 +58,76 @@ export default function App() {
         onOpenQuote={() => handleOpenQuoteModal()}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1">
-        {currentPage === 'home' && (
-          <HomeView
-            onNavigate={handleNavigate}
-            onOpenQuote={handleOpenQuoteModal}
-            onOpenProductModal={(product) => setSelectedProductForModal(product)}
-          />
-        )}
+      {/* Main Content Area with Smooth Page Transitions */}
+      <main className="flex-1 overflow-x-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentPage}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: "easeInOut" }}
+          >
+            {currentPage === 'home' && (
+              <HomeView
+                onNavigate={handleNavigate}
+                onOpenQuote={handleOpenQuoteModal}
+                onOpenProductModal={(product) => setSelectedProductForModal(product)}
+              />
+            )}
 
-        {currentPage === 'about' && (
-          <AboutView
-            onNavigate={handleNavigate}
-            onOpenQuote={() => handleOpenQuoteModal()}
-          />
-        )}
+            {currentPage === 'about' && (
+              <AboutView
+                onNavigate={handleNavigate}
+                onOpenQuote={() => handleOpenQuoteModal()}
+              />
+            )}
 
-        {currentPage === 'services' && (
-          <ServicesView
-            onNavigate={handleNavigate}
-            onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
-          />
-        )}
+            {currentPage === 'services' && (
+              <ServicesView
+                onNavigate={handleNavigate}
+                onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
+              />
+            )}
 
-        {currentPage === 'products' && (
-          <ProductsView
-            onNavigate={handleNavigate}
-            onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
-            onOpenProductModal={(product) => setSelectedProductForModal(product)}
-          />
-        )}
+            {currentPage === 'products' && (
+              <ProductsView
+                onNavigate={handleNavigate}
+                onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
+                onOpenProductModal={(product) => setSelectedProductForModal(product)}
+              />
+            )}
 
-        {currentPage === 'maintenance' && (
-          <MaintenanceView
-            onNavigate={handleNavigate}
-            onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
-          />
-        )}
+            {currentPage === 'maintenance' && (
+              <MaintenanceView
+                onNavigate={handleNavigate}
+                onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
+              />
+            )}
 
-        {currentPage === 'projects' && (
-          <ProjectsView
-            onNavigate={handleNavigate}
-            onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
-          />
-        )}
+            {currentPage === 'projects' && (
+              <ProjectsView
+                onNavigate={handleNavigate}
+                onOpenQuote={(sol) => handleOpenQuoteModal(sol)}
+              />
+            )}
 
-        {currentPage === 'contact' && (
-          <ContactView
-            onNavigate={handleNavigate}
-          />
-        )}
+            {currentPage === 'contact' && (
+              <ContactView
+                onNavigate={handleNavigate}
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Global Footer */}
       <Footer
         onNavigate={handleNavigate}
         onOpenQuote={() => handleOpenQuoteModal()}
+        onSelectProductModal={(productId) => {
+          handleOpenQuoteModal(productId);
+        }}
       />
 
       {/* Persistent Floating WhatsApp Speed-Dial */}
@@ -132,22 +146,32 @@ export default function App() {
       )}
 
       {/* Global Floating Quote Modal */}
-      {isQuoteModalOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#02163B]/80 backdrop-blur-xs animate-fadeIn"
-          onClick={() => setIsQuoteModalOpen(false)}
-        >
-          <div 
-            className="relative w-full max-w-2xl bg-transparent max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {isQuoteModalOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#02163B]/80 backdrop-blur-xs"
+            onClick={() => setIsQuoteModalOpen(false)}
           >
-            <QuoteWizard
-              initialSolution={quoteInitialSolution}
-              onCloseModal={() => setIsQuoteModalOpen(false)}
-            />
-          </div>
-        </div>
-      )}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-2xl bg-transparent max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <QuoteWizard
+                initialSolution={quoteInitialSolution}
+                onCloseModal={() => setIsQuoteModalOpen(false)}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

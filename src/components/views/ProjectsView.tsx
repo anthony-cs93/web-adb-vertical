@@ -15,6 +15,7 @@ import {
   Sparkles,
   Camera
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface ProjectsViewProps {
   onNavigate: (page: PageView) => void;
@@ -82,7 +83,12 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
       {/* Top Banner */}
       <section className="bg-[#02163B] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-3xl space-y-4"
+          >
             <div className="inline-flex items-center gap-2 bg-[#085AB3] text-white text-xs font-bold px-3 py-1 rounded">
               <span>Proyectos realizados</span>
             </div>
@@ -92,12 +98,18 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Conoce las tipologías arquitectónicas y esquemas electromecánicos que desarrollamos para edificaciones residenciales, comerciales e industriales en el Perú.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Notice of Transparency & Real Case Preparation */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-blue-50/70 border border-blue-200 rounded-2xl p-6 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 text-xs text-slate-700">
           <div className="flex items-start gap-3 max-w-2xl">
             <div className="p-2.5 bg-[#085AB3] text-white rounded-xl shrink-0 mt-0.5">
@@ -113,7 +125,9 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
             </div>
           </div>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             href={getWhatsAppLink('personalizado', 'deseo solicitar referencias técnicas y asesoría para un proyecto similar.')}
             target="_blank"
             rel="noopener noreferrer"
@@ -121,12 +135,18 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
           >
             <MessageSquare className="w-4 h-4" />
             <span>Consultar con un Asesor</span>
-          </a>
+          </motion.a>
         </div>
-      </section>
+      </motion.section>
 
       {/* Filterable Project Showcases */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         
         {/* Sector Tabs */}
         <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold">
@@ -137,8 +157,10 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
             { id: 'industrial', label: 'Industrial & Carga' },
             { id: 'accesibilidad', label: 'Accesibilidad Universal' }
           ].map((sec) => (
-            <button
+            <motion.button
               key={sec.id}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setActiveSector(sec.id)}
               className={`px-4 py-2 rounded-xl transition-all ${
                 activeSector === sec.id
@@ -148,22 +170,24 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
               id={`sec-filter-${sec.id}`}
             >
               {sec.label}
-            </button>
+            </motion.button>
           ))}
         </div>
 
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((proj) => (
-            <div
+            <motion.div
               key={proj.id}
-              className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="relative aspect-16/9 bg-slate-100 overflow-hidden">
                 <img
                   src={proj.image}
                   alt={proj.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500 ease-out"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-3 left-3 bg-[#02163B]/90 text-white text-[11px] font-bold px-2.5 py-1 rounded backdrop-blur-xs">
@@ -177,7 +201,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
 
               <div className="p-6 space-y-4">
                 <div>
-                  <h3 className="text-lg font-bold text-[#02163B]">
+                  <h3 className="text-lg font-bold text-[#02163B] group-hover:text-[#085AB3] transition-colors">
                     {proj.title}
                   </h3>
                   <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -191,22 +215,30 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
                     <span>{proj.status}</span>
                   </span>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => onOpenQuote()}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#085AB3] hover:underline"
                   >
                     <span>Cotizar proyecto similar</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-[#02163B] text-white rounded-3xl p-8 sm:p-12 text-center max-w-4xl mx-auto space-y-5">
           <h3 className="text-2xl sm:text-3xl font-bold">
             ¿Tienes un proyecto en curso y necesitas evaluar el ducto o foso?
@@ -215,16 +247,18 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onNavigate, onOpenQu
             Envíanos tus planos arquitectónicos en formato PDF o DWG para recibir un análisis preliminar de cargas estructurales y propuesta comercial.
           </p>
           <div className="pt-2 flex justify-center gap-3">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onOpenQuote()}
               className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-xl shadow-md transition-all"
             >
               <span>Solicitar cotización con planos</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

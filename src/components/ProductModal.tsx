@@ -14,6 +14,7 @@ import {
   Zap,
   Info
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface ProductModalProps {
   product: Product | null;
@@ -36,12 +37,24 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
-      <div 
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
+      onClick={onClose}
+    >
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col my-auto"
         role="dialog"
         aria-modal="true"
         aria-labelledby="product-modal-title"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
         <div className="bg-[#02163B] text-white p-5 sm:p-6 flex items-start justify-between relative">
@@ -62,14 +75,16 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             </p>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onClose}
             className="text-slate-400 hover:text-white p-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 transition-colors"
             aria-label="Cerrar modal"
             id="close-product-modal-btn"
           >
             <X className="w-5 h-5" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Modal Content - Scrollable */}
@@ -244,7 +259,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
         {/* Modal Footer Actions */}
         <div className="bg-slate-50 p-4 sm:p-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <a
+          <motion.a
+            whileTap={{ scale: 0.97 }}
             href={getWhatsAppLink('personalizado', `deseo cotizar y recibir información técnica detallada sobre: ${product.name}.`)}
             target="_blank"
             rel="noopener noreferrer"
@@ -252,18 +268,20 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           >
             <MessageSquare className="w-4 h-4 text-emerald-600" />
             <span>Consultar por WhatsApp</span>
-          </a>
+          </motion.a>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={handleQuoteClick}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-lg shadow-sm transition-all"
             id="modal-quote-submit-btn"
           >
             <span>Solicitar cotización para esta solución</span>
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

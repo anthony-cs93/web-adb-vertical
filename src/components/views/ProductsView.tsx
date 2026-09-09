@@ -16,6 +16,7 @@ import {
   Filter,
   CheckCircle2
 } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface ProductsViewProps {
   onNavigate: (page: PageView) => void;
@@ -43,7 +44,12 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
       {/* Top Banner */}
       <section className="bg-[#02163B] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-3xl space-y-4"
+          >
             <div className="inline-flex items-center gap-2 bg-[#085AB3] text-white text-xs font-bold px-3 py-1 rounded">
               <span>Catálogo de Soluciones Verticales</span>
             </div>
@@ -53,12 +59,18 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Soluciones para edificios corporativos, condominios residenciales, viviendas unifamiliares, almacenes industriales y accesibilidad universal.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Filter and Catalogue Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         
         {/* Filters Bar */}
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -78,8 +90,10 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
               { id: 'plataformas', label: 'Plataformas' },
               { id: 'accesibilidad', label: 'Accesibilidad' }
             ].map((cat) => (
-              <button
+              <motion.button
                 key={cat.id}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
                   selectedCategory === cat.id
@@ -89,7 +103,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                 id={`cat-filter-${cat.id}`}
               >
                 {cat.label}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -101,8 +115,10 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
               { id: 'B2B', label: 'B2B (Empresas)' },
               { id: 'B2C', label: 'B2C (Hogar)' }
             ].map((aud) => (
-              <button
+              <motion.button
                 key={aud.id}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setSelectedAudience(aud.id)}
                 className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors ${
                   selectedAudience === aud.id
@@ -111,7 +127,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                 }`}
               >
                 {aud.label}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -142,10 +158,16 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
             </button>
           </div>
         )}
-      </section>
+      </motion.section>
 
       {/* Quick Specs Comparative Table */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
           <div className="max-w-2xl mb-6">
             <span className="text-xs font-bold uppercase tracking-wider text-[#085AB3]">
@@ -182,12 +204,14 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                     <td className="p-3">{prod.specs.paradasMax}</td>
                     <td className="p-3">{prod.specs.cuartoMaquinas}</td>
                     <td className="p-3 text-right">
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => onOpenProductModal(prod)}
                         className="text-[#085AB3] hover:underline font-bold"
                       >
                         Ver ficha →
-                      </button>
+                      </motion.button>
                     </td>
                   </tr>
                 ))}
@@ -195,10 +219,16 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
             </table>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Quote Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.section 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="bg-[#02163B] rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-1 max-w-xl">
             <h3 className="text-xl font-bold">¿Tienes dudas sobre qué equipo elegir?</h3>
@@ -208,14 +238,18 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onOpenQuote()}
               className="inline-flex items-center justify-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-sm transition-all"
             >
               <span>Solicitar cotización formal</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
-            <a
+            </motion.button>
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={getWhatsAppLink('cotizacion')}
               target="_blank"
               rel="noopener noreferrer"
@@ -223,10 +257,10 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
             >
               <MessageSquare className="w-4 h-4" />
               <span>WhatsApp Directo</span>
-            </a>
+            </motion.a>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

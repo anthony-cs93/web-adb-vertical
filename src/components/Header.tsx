@@ -7,10 +7,11 @@ import {
   MessageSquare, 
   Menu, 
   X, 
-  ArrowRight,
-  ShieldCheck,
-  ChevronDown
+  ArrowRight, 
+  ShieldCheck, 
+  ChevronDown 
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
   currentPage: PageView;
@@ -177,64 +178,73 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, onOpenQ
       </div>
 
       {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 shadow-xl px-4 pt-3 pb-6 animate-fadeIn">
-          <div className="flex flex-col space-y-1.5">
-            {navItems.map((item) => {
-              const isActive = currentPage === item.id;
-              return (
-                <button
-                  key={item.id}
-                  id={`mobile-nav-link-${item.id}`}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`flex items-center justify-between w-full px-4 py-3 text-left rounded-lg text-base font-semibold transition-colors ${
-                    isActive 
-                      ? 'bg-blue-50 text-[#085AB3] font-bold' 
-                      : 'text-slate-800 hover:bg-slate-50'
-                  }`}
-                >
-                  <span>{item.label}</span>
-                  {isActive && <div className="w-2 h-2 rounded-full bg-[#085AB3]"></div>}
-                </button>
-              );
-            })}
-          </div>
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden bg-white border-b border-slate-200 shadow-xl px-4 pt-3 pb-6 overflow-hidden"
+          >
+            <div className="flex flex-col space-y-1.5">
+              {navItems.map((item) => {
+                const isActive = currentPage === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    id={`mobile-nav-link-${item.id}`}
+                    onClick={() => handleNavClick(item.id)}
+                    className={`flex items-center justify-between w-full px-4 py-3 text-left rounded-lg text-base font-semibold transition-colors ${
+                      isActive 
+                        ? 'bg-blue-50 text-[#085AB3] font-bold' 
+                        : 'text-slate-800 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && <div className="w-2 h-2 rounded-full bg-[#085AB3]"></div>}
+                  </button>
+                );
+              })}
+            </div>
 
-          <div className="mt-5 pt-4 border-t border-slate-100 flex flex-col gap-2.5">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenQuote();
-              }}
-              className="w-full flex items-center justify-center gap-2 bg-[#085AB3] text-white text-base font-bold py-3 px-4 rounded-lg shadow-sm"
-              id="mobile-drawer-quote-btn"
-            >
-              <span>Solicitar cotización formal</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="mt-5 pt-4 border-t border-slate-100 flex flex-col gap-2.5">
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenQuote();
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-base font-bold py-3 px-4 rounded-lg shadow-sm transition-colors"
+                id="mobile-drawer-quote-btn"
+              >
+                <span>Solicitar cotización formal</span>
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
 
-            <a
-              href={getWhatsAppLink('general')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-base font-semibold py-3 px-4 rounded-lg"
-              id="mobile-drawer-whatsapp-btn"
-            >
-              <MessageSquare className="w-5 h-5" />
-              <span>Contactar por WhatsApp</span>
-            </a>
+              <a
+                href={getWhatsAppLink('general')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-base font-semibold py-3 px-4 rounded-lg transition-colors"
+                id="mobile-drawer-whatsapp-btn"
+              >
+                <MessageSquare className="w-5 h-5" />
+                <span>Contactar por WhatsApp</span>
+              </a>
 
-            <a
-              href="tel:+51922248755"
-              className="w-full flex items-center justify-center gap-2 bg-slate-100 text-slate-800 text-sm font-semibold py-2.5 px-4 rounded-lg hover:bg-slate-200 transition-colors"
-              id="mobile-drawer-call-btn"
-            >
-              <Phone className="w-4 h-4 text-[#085AB3]" />
-              <span>Llamar a Asesor: {companyInfo.phoneDisplay}</span>
-            </a>
-          </div>
-        </div>
-      )}
+              <a
+                href="tel:+51922248755"
+                className="w-full flex items-center justify-center gap-2 bg-slate-100 text-slate-800 text-sm font-semibold py-2.5 px-4 rounded-lg hover:bg-slate-200 transition-colors"
+                id="mobile-drawer-call-btn"
+              >
+                <Phone className="w-4 h-4 text-[#085AB3]" />
+                <span>Llamar a Asesor: {companyInfo.phoneDisplay}</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

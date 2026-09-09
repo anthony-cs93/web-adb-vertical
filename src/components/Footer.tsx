@@ -8,7 +8,6 @@ import {
   MapPin, 
   Clock, 
   MessageSquare, 
-  ArrowUpRight, 
   ShieldCheck,
   ChevronRight
 } from 'lucide-react';
@@ -68,17 +67,6 @@ export const Footer: React.FC<FooterProps> = ({
                 <Clock className="w-4 h-4 text-[#085AB3] shrink-0 mt-0.5" />
                 <span>{companyInfo.schedule.weekdays} | {companyInfo.schedule.saturdays}</span>
               </div>
-            </div>
-
-            <div className="pt-3">
-              <button
-                onClick={() => onOpenQuote()}
-                className="inline-flex items-center gap-2 bg-[#085AB3] hover:bg-[#074b94] text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors shadow-sm"
-                id="footer-quote-btn"
-              >
-                <span>Solicitar cotización de proyecto</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
             </div>
           </div>
 
@@ -177,24 +165,26 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Bar: Legal & SEO notes & Credits */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="text-center md:text-left">
+        <div className="pt-8 flex flex-col items-center justify-center gap-3.5 text-xs text-slate-400 text-center">
+          <div>
             <p>© {currentYear} ADB Soluciones Vertical. Todos los derechos reservados.</p>
             <p className="text-[11px] text-slate-500 mt-0.5">
               Empresa peruana de elevación y transporte vertical. Lima - Perú.
             </p>
           </div>
 
-          <div className="text-center md:text-right text-xs text-slate-400">
-            <span>Web diseñada por </span>
+          <div>
             <a 
               href="https://scalio-web-pi.vercel.app/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="font-semibold text-blue-300 hover:text-white transition-colors underline underline-offset-2 decoration-blue-500/60 hover:decoration-white"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-800/90 border border-slate-700/80 text-[11px] text-slate-400 hover:text-white hover:border-slate-600 transition-all shadow-xs group"
               id="footer-designer-credit"
             >
-              Scalio
+              <span>Web diseñada por</span>
+              <span className="font-semibold text-blue-400 group-hover:text-blue-300 transition-colors">
+                Scalio
+              </span>
             </a>
           </div>
         </div>
