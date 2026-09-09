@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #085AB3;
+  --color-brand-blue-hover: #074b94;
+  --color-brand-dark: #02163B;
+  --color-brand-gray: #858585;
+  --color-brand-muted: #64748B;
+  --color-brand-surface: #F8FAFC;
+  --color-brand-card: #FFFFFF;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #F8FAFC;
+  color: #02163B;
+  overflow-x: hidden;
+}
+
+/* Accessible focus rings */
+:focus-visible {
+  outline: 2px solid #085AB3;
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+

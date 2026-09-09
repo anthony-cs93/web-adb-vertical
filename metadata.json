@@ -1,0 +1,7 @@
+{
+  "name": "ADB Soluciones Vertical",
+  "description": "Especialistas en ingeniería, fabricación, suministro, instalación y mantenimiento de ascensores y sistemas de elevación en el Perú.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

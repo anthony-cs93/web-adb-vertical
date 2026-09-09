@@ -1,0 +1,39 @@
+
+<svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <style>
+    .navy { fill: #051C42; }
+    .blue { fill: #0062B8; }
+    .grey { fill: #727E8C; }
+    .subtitle-navy { fill: #051C42; font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.32em; }
+    .subtitle-blue { fill: #0062B8; font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.32em; }
+  </style>
+
+  <g id="ADB-Mark">
+    <!-- Letter A -->
+    <path class="navy" d="M 148 116 L 36 290 L 88 290 L 112 252 L 184 252 L 208 290 L 260 290 L 148 116 Z M 148 160 L 170 218 L 126 218 Z" fill-rule="evenodd"/>
+
+    <!-- Tower 1 (Grey) -->
+    <path class="grey" d="M 204 290 L 204 148 L 222 120 L 222 290 Z"/>
+
+    <!-- Tower 2 (Cyan/Blue Tallest Spire) -->
+    <path class="blue" d="M 228 290 L 228 24 L 262 86 L 262 290 Z"/>
+
+    <!-- Tower 3 (Navy) -->
+    <path class="navy" d="M 268 290 L 268 84 L 288 116 L 288 290 Z"/>
+
+    <!-- Tower 4 (Grey) -->
+    <path class="grey" d="M 294 290 L 294 142 L 310 170 L 310 290 Z"/>
+
+    <!-- Letter D -->
+    <path class="navy" d="M 318 122 L 378 122 C 428 122 458 154 458 206 C 458 258 428 290 378 290 L 318 290 Z M 346 150 L 346 262 L 374 262 C 404 262 426 244 426 206 C 426 168 404 150 374 150 Z" fill-rule="evenodd"/>
+
+    <!-- Letter B -->
+    <path class="navy" d="M 466 122 L 524 122 C 552 122 568 136 568 158 C 568 174 558 188 540 196 C 562 202 574 218 574 242 C 574 270 554 290 522 290 L 466 290 Z M 494 148 L 494 188 L 520 188 C 536 188 544 179 544 168 C 544 157 536 148 520 148 Z M 494 214 L 494 264 L 522 264 C 538 264 548 254 548 239 C 548 224 538 214 522 214 Z" fill-rule="evenodd"/>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="300" y="352" text-anchor="middle">
+    <tspan class="subtitle-navy">SOLUCIONES </tspan>
+    <tspan class="subtitle-blue">VERTICAL</tspan>
+  </text>
+</svg>
